@@ -1,0 +1,36 @@
+To install the latest  stable "kubectl"  from the official kubernetes repository on the ubuntu "ec2"
+____________________________________________________________________________________________________
+
+>> sudo apt update
+>> sudo apt install -y apt-transport-https ca-certificate curl 
+
+ca-certificates: This installs a collection of trusted Certificate Authority (CA) certificates
+These certificates allow your system to verify  that an HTTPS server's certificate is trustworthy
+
+apt-transport-https: This package allowed apt to communicate with software repository using https (historicallY) 
+not needed now
+
+Add the kubernetes signing key: 
+_______________________________
+
+>> sudo mkdir -p -m 755 /etc/apt/keyrings
+>> curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.34/deb/Release.key | \
+>> sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+
+Add the repository: 
+_________________________________
+
+>> echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.34/deb/ /' | \
+sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+Install the kubectl : 
+_________________________________
+
+>> sudo apt update
+>> sudo apt install -y kubectl
+
+Verify : 
+_________________________________
+
+>> kubectl version --client
