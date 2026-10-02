@@ -1,0 +1,55 @@
+Installation of the Docker on the Ubuntus Ec2 instance
+
+1.Update the system
+
+>> sudo apt update
+>> sudo apt upgrade -y
+
+2. Install the required packages
+
+>> sudo apt install  -y ca-certificate curl
+
+3.Add Docker's official GPG key
+
+>> sudo install -m 0755 -d /etc/apt/keyrings
+
+>> sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+  -o /etc/apt/keyrings/docker.asc
+
+>> sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+
+4. Add the Docker official repository 
+
+>> echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+
+5. Update the package index
+
+>> sudo apt update
+
+6. Install the latest Docker Engine 
+
+>> sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+
+7. Verify the installation
+
+>>  sudo docker --version
+>>  sudo docker compose version
+>>  sudo systemctl status docker
+
+8. Allow the ubuntu user to run the Docker without  sudo 
+
+>> sudo usermod -aG docker ubuntu
+
+apply the group change :
+>> newgrp docker
+
+8.Test the docker 
+
+>> docker run hello-world
+>> docker ps
