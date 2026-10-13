@@ -53,3 +53,9 @@ apply the group change :
 
 >> docker run hello-world
 >> docker ps
+
+
+8.to inspect the image digest
+
+>> docker image inspect node:22-bookworm-slim \
+  --format '{{json .RepoDigests}}'
